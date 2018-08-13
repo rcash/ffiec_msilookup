@@ -92,11 +92,13 @@ def getresponse(tract, msa):
         print('BOOM! got to the last step')
         #tracts not unique, get right MSA as well
         msastep = cdmsahead.loc[int(tract)].set_index('MSA2013')
-        resultant = msastep.at[int(msa),'Mi2018']
+        msastep.loc[(msa, 'Mi2018')]
         if isinstance(resultant, list):
             #all will be same, just need one
+            print('almost done, i am a list')
             return resultant[0]
         else:
+            print('almost done, i am single ;S')
             return resultant
     else:
         return -1
@@ -105,6 +107,7 @@ def getresponse(tract, msa):
 def builddataframe(filename):
     return pd.read_pickle(filename)
 
+#rethink how you check, vals aren't necessarily unique
 def tractandmsaincountydata(trac, msa, cdo):
     cond1 = False;
     cond2 = False;
