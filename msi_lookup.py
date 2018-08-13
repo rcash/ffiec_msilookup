@@ -1,9 +1,8 @@
 ##TODO:
-#1.define types i.e. str() or int() for each function that needs it
-#2.move non-flask functions into another file
-#3.beautify with bootstrap
-#4.deploy to server
-#5.find some testcases!
+#1.move non-flask functions into another file
+#2.beautify with bootstrap
+#3.deploy to server
+#4.find some testcases!
 
 import requests
 import json
@@ -86,13 +85,14 @@ def getresponse(tract, msa):
     filename = 'countydata.pk1'
     countydata = builddataframe(filename)
     cd = countydata[['TRACT','MSA2013','RURAL','Mi2018']]
-    cdmsahead = cd
-    cdmsahead = cdmsahead.set_index('TRACT')
-    if tractandmsaincountydata(tract, msa, cd):
+    cdtract = countydata.set_index('TRACT')
+    if doesrowexist(cd, tract, msa):
         print('BOOM! got to the last step')
         #tracts not unique, get right MSA as well
-        msastep = cdmsahead.loc[int(tract)].set_index('MSA2013')
-        msastep.loc[(msa, 'Mi2018')]
+        msastep = cdtract.loc[int(tract)].set_index('MSA2013')
+        print(msastep)
+        vale = msastep.loc[int(msa)]
+        resultant = vale.at['Mi2018']
         if isinstance(resultant, list):
             #all will be same, just need one
             print('almost done, i am a list')
@@ -108,7 +108,7 @@ def builddataframe(filename):
     return pd.read_pickle(filename)
 
 #rethink how you check, vals aren't necessarily unique
-def tractandmsaincountydata(trac, msa, cdo):
+'''def tractandmsaincountydata(trac, msa, cdo):
     cond1 = False;
     cond2 = False;
     for n in cdo['TRACT']:
@@ -118,7 +118,23 @@ def tractandmsaincountydata(trac, msa, cdo):
         if n == int(msa):
             cond2 = True;
     return cond1 & cond2
+'''
+
+def doesrowexist(df, tract, msa):
+    dftract = df.set_index('TRACT')
+    foundtract = False
+    for n in df.index:
+        if df.at[n,'TRACT'] == int(tract):
+            foundtract = True
+    if not foundtract:
+        return False
+    matchingtracts = dftract.loc[int(tract)]
+    msavals = matchingtracts.at[int(tract),'MSA2013']
+    for n in msavals:
+        if int(msa) == n:
+            return True
+    return False
 
 #usual stuff
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
