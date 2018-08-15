@@ -86,7 +86,7 @@ def getresponse(tract, msa):
     countydata = builddataframe(filename)
     cd = countydata[['TRACT','MSA2013','RURAL','Mi2018']]
     cdtract = countydata.set_index('TRACT')
-    if doesrowexist(cd, tract, msa):
+    if rowdoesexist(cd, tract, msa):
         print('BOOM! got to the last step')
         #tracts not unique, get right MSA as well
         msastep = cdtract.loc[int(tract)].set_index('MSA2013')
@@ -107,20 +107,7 @@ def getresponse(tract, msa):
 def builddataframe(filename):
     return pd.read_pickle(filename)
 
-#rethink how you check, vals aren't necessarily unique
-'''def tractandmsaincountydata(trac, msa, cdo):
-    cond1 = False;
-    cond2 = False;
-    for n in cdo['TRACT']:
-        if n == int(trac):
-            cond1 = True;
-    for n in cdo['MSA2013']:
-        if n == int(msa):
-            cond2 = True;
-    return cond1 & cond2
-'''
-
-def doesrowexist(df, tract, msa):
+def rowdoesexist(df, tract, msa):
     dftract = df.set_index('TRACT')
     foundtract = False
     for n in df.index:
