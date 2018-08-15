@@ -5,17 +5,17 @@ class geocode_info():
         if len(useraddress) == 0:
             raise ValueError('ERROR: val must be greater than 0')
         #address/query for body of POST request
-        self.address = useraddress
+        self.__address = useraddress
         #url to grab from
-        self.posturl = 'https://geomap.ffiec.gov/FFIECGeocMap/GeocodeMap1.aspx/GetGeocodeData'
-        self.postheader = {'Content-Type': 'application/json; charset=utf-8'}
-        self.payload = {'sSingleLine': self.address, 'iCensusYear': '2018'}
-        self.tract = ""
-        self.msa = ""
-        self.addressfound = False
+        self.__posturl = 'https://geomap.ffiec.gov/FFIECGeocMap/GeocodeMap1.aspx/GetGeocodeData'
+        self.__postheader = {'Content-Type': 'application/json; charset=utf-8'}
+        self.payload = {'sSingleLine': self.__address, 'iCensusYear': '2018'}
+        self.__tract = ""
+        self.__msa = ""
+        self.__addressfound = False
 
     def sendpost(self):
-        r = requests.post(self.posturl, data = json.dumps(self.payload), headers = self.postheader)
+        r = requests.post(self.__posturl, data = json.dumps(self.payload), headers = self.__postheader)
         if r.status_code != 200:
             raise RunTimeError('POST request failed')
         return r.text
@@ -23,9 +23,9 @@ class geocode_info():
     def maniprequest(self, request):
         status = request.find('sStatus')
         if status != -1 and request[status + (len('sStatus') + 3)] == 'Y':
-            self.addressfound = True
-            self.tract = self.grab_tract(request)
-            self.msa = self.grab_msa(request)
+            self.__addressfound = True
+            self.__tract = self.grab_tract(request)
+            self.__msa = self.grab_msa(request)
 
     def grab_tract(self, request_string):
         #vals hardcoded, if geodec changes them this needs to be redone
@@ -52,22 +52,30 @@ class geocode_info():
     def set_msa(self, val):
         if len(val) == 0:
             raise ValueError('ERROR: val must be greater than 0')
-        self.msa = val
+        self.__msa = val
 
     def set_tract(self, val):
         if len(val) == 0:
             raise ValueError('ERROR: val must be greater than 0')
-        self.tract = val
+        self.__tract = val
 
     def get_tract(self):
-        if len(self.tract) == 0:
+        if len(self.__tract) == 0:
             raise ValueError('ERROR: tract must be assigned with a length greater than 0.')
-        return self.tract
+        return self.__tract
 
     def get_msa(self):
-        if len(self.msa) == 0:
+        if len(self.__msa) == 0:
             raise ValueError('ERROR: msa must be assigned with a length greater than 0.')
-        return self.msa
+        return self.__msa
 
     def get_addr_status(self):
-        return self.addressfound
+        return self.__addressfound
+
+    def get_addr(self):
+        return self.__address
+
+    def set_addr(self, val):
+        if len(val) == 0:
+            raise ValueError('ERROR: val must be greater than 0')
+        self.__address = val
