@@ -1,4 +1,5 @@
 ##TODO:
+#set new key
 #beautify
 #add CDN, local as fallback
 #set up a logging schema
