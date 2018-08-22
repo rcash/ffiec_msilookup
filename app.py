@@ -17,7 +17,7 @@ def msi_lookup():
 @app.route('/', methods=['POST'])
 def msi_lookup_post():
     text = request.form['text']
-    if text == "" or " ":
+    if text == "":
         flash('Please enter a valid address.')
     else:
         geodec = geocode_info(text)
