@@ -18,6 +18,7 @@ class geocode_info():
         r = requests.post(self.__posturl, data = json.dumps(self.payload), headers = self.__postheader)
         if r.status_code != 200:
             raise RunTimeError('POST request failed')
+        print('Successful post request with query: ' + __self.address)
         return r.text
 
     def maniprequest(self, request):
@@ -26,6 +27,7 @@ class geocode_info():
             self.__addressfound = True
             self.__tract = self.grab_tract(request)
             self.__msa = self.grab_msa(request)
+            print('Tract and MSA found-tract: ' + self.__tract + ' msa: ' + self.__msa)
 
     def grab_tract(self, request_string):
         #vals hardcoded, if geodec changes them this needs to be redone

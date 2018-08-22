@@ -17,14 +17,15 @@ class countydata():
         cdtract = self.__df.set_index('TRACT')
         #print('cdtract')
         #print(cdtract.loc[int(self.__tract)])
-        #print goes off here in rowdoesexist
         val = -1
         if self.rowdoesexist():
+            #means max msa can be found now that we know it's in spreadsheet
             self.__maxmsafound = True
             msastep = cdtract.loc[int(self.__tract)]
             if isinstance(msastep, pd.core.series.Series):
                 #left with a series, only one possible Mi value
                 self.__maxmsa = msastep.loc['Mi2018']
+                print('Max msa found: ' + self.__maxmsa)
             else:
                 #otherwise manip dataframe to get one val
                 msastep = msastep.set_index('MSA2013')
@@ -33,8 +34,10 @@ class countydata():
                 #could still be multiple
                 if isinstance(resultant, list):
                     self.__maxmsa = resultant[0]
+                    print('Max msa found: ' + self.__maxmsa)
                 else:
                     self.__maxmsa = resultant
+                    print('Max msa found: ' + self.__maxmsa)
 
     def getmaxmsa(self):
         return self.__maxmsa
@@ -69,15 +72,18 @@ class countydata():
             if self.__df.at[n,'TRACT'] == int(self.__tract):
                 foundtract = True
         if not foundtract:
+            #not in df
             return False
         matchingtracts = dftract.loc[int(self.__tract)]
         #print(matchingtracts)
         msavals = ''
         #print(matchingtracts.loc['MSA2013'])
         #if series just grab msa val
+        #series means we've got it down to one already
         if isinstance(matchingtracts, pd.core.series.Series):
             msavals = matchingtracts.loc['MSA2013']
             if int(self.__msa) == msavals:
+                print('Successfully found msa pair for tract ' + self.__tract)
                 return True
             else:
                 return False
@@ -85,5 +91,6 @@ class countydata():
             msavals = matchingtracts.at[int(self.__tract),'MSA2013']
         for n in msavals:
             if int(self.__msa) == n:
+                print('Successfully found msa pair for tract ' + self.__tract)
                 return True
         return False
