@@ -1,17 +1,5 @@
-/*@import url('https://fonts.googleapis.com/css?family=Montserrat:bold');
-@font-face {
-    font-family: 'Aleo';
-    src: url('Aleo-Regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-*/
 .body{
-    /*font-family: 'Aleo', sans-serif;*/
     display: block;
-}
-.tooltitle{
-    /*font-family: 'Montserrat',sans-serif;*/
 }
 .terms{
     padding-top: 2.5vh;

@@ -1,7 +1,4 @@
 ##TODO:
-#set new key
-#beautify
-#add CDN, local as fallback
 #set up a logging schema
 import os
 import requests
@@ -20,17 +17,20 @@ def msi_lookup():
 @app.route('/', methods=['POST'])
 def msi_lookup_post():
     text = request.form['text']
-    geodec = geocode_info(text)
-    geodec.maniprequest(geodec.sendpost())
-    if geodec.get_addr_status() == False:
-        flash('Please check spelling for ' + geodec.get_addr() + ' and try again!')
+    if text == "":
+        flash('Please enter a valid adress.')
     else:
-        #call fxn for rest of shit
-        returnval = dataframehandling(geodec)
-        if returnval == -1:
-            flash(geodec.get_addr() + ' is not eligible.')
+        geodec = geocode_info(text)
+        geodec.maniprequest(geodec.sendpost())
+        if geodec.get_addr_status() == False:
+            flash('Please check spelling for "' + geodec.get_addr() + '" and try again!')
         else:
-            flash(geodec.get_addr() + ' is eligible, AMI: ' + str(returnval))
+            #call fxn for rest of shit
+            returnval = dataframehandling(geodec)
+            if returnval == -1:
+                flash('"' + geodec.get_addr() + '" is not eligible.')
+            else:
+                flash('"' + geodec.get_addr() + '" is eligible, AMI: ' + str(returnval))
     return render_template("tract_search.html")
 
 def dataframehandling(geocode):
