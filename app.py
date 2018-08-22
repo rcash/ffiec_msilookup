@@ -18,7 +18,7 @@ def msi_lookup():
 def msi_lookup_post():
     text = request.form['text']
     if text == "" or " ":
-        flash('Please enter a valid adress.')
+        flash('Please enter a valid address.')
     else:
         geodec = geocode_info(text)
         geodec.maniprequest(geodec.sendpost())
