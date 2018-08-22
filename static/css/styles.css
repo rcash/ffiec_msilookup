@@ -1,34 +1,46 @@
 .body{
-    display: inline;
-}
-.h1{
-    text-align: center;
+    display: block;
 }
 .terms{
+    display: inline-block;
+    width: 50%;
     text-align: center;
 }
 .searching{
-    padding-top: 5%;
+    padding-top: 2.5%;
     text-align: center;
 }
 .logoitems{
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 5%;
+    padding: 5%;
+    height: 10vh;
+    margin-bottom: 5vh;
 }
-.globallogoico{
-    width: 25%;
-    position: absolute;
+
+.instr{
+    text-align: center;
+}
+
+.instr-group{
+    padding-top: 10vh;
+    vertical-align: middle;
+    padding-bottom: 1%;
 }
 
 .subfield{
     width:70%;
 }
-
+.globallogoico{
+    width: 15vw;
+    position: absolute;
+    margin-left: 5%;
+    padding-top: 3vh;
+}
 .globallogotext{
+    height: 5vh;
+    margin-left: -55%;
+    margin-right: 10%;
     display: block;
     fill: #298FC2;
     float: left;
-    height: 50%;
     padding-top: 5%;
 }
