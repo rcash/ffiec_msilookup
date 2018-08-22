@@ -2,6 +2,24 @@
     <html lang="en">
     <head>
         <title>Servion $2K18 Eligibility Look Up Tool</title>
+        {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+    <div class="container">
+        <div class="row offset-md3">
+            <div class="col ">
+                <div class="alert alert-primary">
+                    <h1>{{ message }}</h1>
+                </div>
+            </div>
+        </div>
+  </div>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="static/css/bootstrap/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="static/css/styles.css" rel="stylesheet">
@@ -13,16 +31,6 @@
                     <h1>$2K18 Eligibility Look Up Tool</h1>
                 </div>
             </div>
-        <div class="row offset-md3">
-            <div class="col instr">
-                <h2>Enter an address to look up:</h2>
-            </div>
-        </div>
-        <div class="row offset-md3">
-            <div class="col instr">
-                <h3>A "Yes" or "No" will be returned dependent on the spreadsheet values</h3>
-            </div>
-        </div>
         <div class="container">
             <div class="col offset-md-3">
                 <ul class="list-group terms">
@@ -31,6 +39,13 @@
                   <li class="list-group-item">Owner Occupied Only</li>
                   <li class="list-group-item">Available for Purchase or Rate/Term Refinances</li>
                 </ul>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row offset-md3">
+                <div class="col instr">
+                        <h2>Enter an address to look up:</h2>
+                </div>
             </div>
         </div>
         <form class="searching" action="." method="POST">
