@@ -25,7 +25,7 @@ class countydata():
             if isinstance(msastep, pd.core.series.Series):
                 #left with a series, only one possible Mi value
                 self.__maxmsa = msastep.loc['Mi2018']
-                print('Max msa found: ' + self.__maxmsa)
+                print('Max msa found: ' + str(self.__maxmsa))
             else:
                 #otherwise manip dataframe to get one val
                 msastep = msastep.set_index('MSA2013')
@@ -34,10 +34,10 @@ class countydata():
                 #could still be multiple
                 if isinstance(resultant, list):
                     self.__maxmsa = resultant[0]
-                    print('Max msa found: ' + self.__maxmsa)
+                    print('Max msa found: ' + str(self.__maxmsa))
                 else:
                     self.__maxmsa = resultant
-                    print('Max msa found: ' + self.__maxmsa)
+                    print('Max msa found: ' + str(self.__maxmsa))
 
     def getmaxmsa(self):
         return self.__maxmsa

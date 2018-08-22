@@ -18,7 +18,7 @@ class geocode_info():
         r = requests.post(self.__posturl, data = json.dumps(self.payload), headers = self.__postheader)
         if r.status_code != 200:
             raise RunTimeError('POST request failed')
-        print('Successful post request with query: ' + __self.address)
+        print('Successful post request with query: ' + self.__address)
         return r.text
 
     def maniprequest(self, request):
