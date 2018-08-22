@@ -3,16 +3,16 @@
 #beautify
 #add CDN, local as fallback
 #set up a logging schema
-
+import os
 import requests
 import json
 import pandas as pd
 from flask import Flask, request, render_template, flash
 from geocodeinfo import geocode_info
 from countydatainfo import countydata
-
+from boto.s3.connection import S3Connection
 app = Flask(__name__)
-app.secret_key = 'H;^7L:n{ve(dFHL):z2~.xJ}Eh^p%'
+app.secret_key = S3Connection(os.environ['SECRET_KEY'], os.environ['SECRET_KEY'])
 @app.route('/')
 def msi_lookup():
     return render_template("tract_search.html")
@@ -45,4 +45,4 @@ def dataframehandling(geocode):
 
 #usual stuff
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
