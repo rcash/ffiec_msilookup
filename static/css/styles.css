@@ -2,18 +2,15 @@
     display: block;
 }
 .terms{
+    padding-top: 2.5vh;
     display: inline-block;
     width: 50%;
     text-align: center;
+    padding-bottom: 2.5vh;
 }
 .searching{
     padding-top: 2.5%;
     text-align: center;
-}
-.logoitems{
-    padding: 5%;
-    height: 10vh;
-    margin-bottom: 5vh;
 }
 
 .instr{
@@ -21,26 +18,16 @@
 }
 
 .instr-group{
-    padding-top: 10vh;
+    padding-top: 5vh;
     vertical-align: middle;
     padding-bottom: 1%;
 }
 
+.flashes{
+    padding-top: 5vh;
+    text-align: center;
+}
+
 .subfield{
     width:70%;
-}
-.globallogoico{
-    width: 15vw;
-    position: absolute;
-    margin-left: 5%;
-    padding-top: 3vh;
-}
-.globallogotext{
-    height: 5vh;
-    margin-left: -55%;
-    margin-right: 10%;
-    display: block;
-    fill: #298FC2;
-    float: left;
-    padding-top: 5%;
 }
