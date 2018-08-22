@@ -1,0 +1,34 @@
+.body{
+    display: inline;
+}
+.h1{
+    text-align: center;
+}
+.terms{
+    text-align: center;
+}
+.searching{
+    padding-top: 5%;
+    text-align: center;
+}
+.logoitems{
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5%;
+}
+.globallogoico{
+    width: 25%;
+    position: absolute;
+}
+
+.subfield{
+    width:70%;
+}
+
+.globallogotext{
+    display: block;
+    fill: #298FC2;
+    float: left;
+    height: 50%;
+    padding-top: 5%;
+}
