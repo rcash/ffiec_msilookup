@@ -12,7 +12,7 @@ from geocodeinfo import geocode_info
 from countydatainfo import countydata
 
 app = Flask(__name__)
-app.secret_key = 'inobv secret key'
+app.secret_key = 'H;^7L:n{ve(dFHL):z2~.xJ}Eh^p%'
 @app.route('/')
 def msi_lookup():
     return render_template("tract_search.html")
