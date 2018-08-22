@@ -27,7 +27,27 @@
     padding-top: 5vh;
     text-align: center;
 }
+.serviontext{
+    color: #298FC2 !important;
+}
+.h1{
+    color: #298FC2 !important;
+}
 
 .subfield{
     width:70%;
+}
+.btn,
+.btn-primary{
+    color: #FFFFFF;
+    background-color: #F2A900 !important;
+    border-color: #F2A900 !important;
+}
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus,
+.btn-primary:hover {
+    color: #FFFFFF;
+    background-color: #D38F00 !important;
+    border-color: #D38F00 !important;
 }
