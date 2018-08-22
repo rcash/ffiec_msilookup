@@ -6,17 +6,18 @@
 import requests
 import json
 import pandas as pd
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, flash
 from geocodeinfo import geocode_info
 from countydatainfo import countydata
 
 app = Flask(__name__)
+app.secret_key = 'inobv secret key'
 @app.route('/')
-def my_form():
+def msi_lookup():
     return render_template("tract_search.html")
-@app.route('/', methods=['POST'])
 
-def my_form_post():
+@app.route('/', methods=['POST'])
+def msi_lookup_post():
     text = request.form['text']
     geodec = geocode_info(text)
     geodec.maniprequest(geodec.sendpost())
@@ -26,9 +27,10 @@ def my_form_post():
         #call fxn for rest of shit
         returnval = dataframehandling(geodec)
         if returnval == -1:
-            return 'No.'
+            flash('Not Eligible')
         else:
-            return 'Yes! Msi2018: ' + str(returnval)
+            flash('Eligible, Max AMI: ' + str(returnval))
+        return render_template("tract_search.html")
 
 def dataframehandling(geocode):
     cd = countydata('countydata.pk1')
