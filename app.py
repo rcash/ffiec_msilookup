@@ -23,14 +23,14 @@ def msi_lookup_post():
         geodec = geocode_info(text)
         geodec.maniprequest(geodec.sendpost())
         if geodec.get_addr_status() == False:
-            flash('Please check spelling for "' + geodec.get_addr() + '" and try again!')
+            flash('Please check spelling for ' + geodec.get_addr() + ' and try again!')
         else:
             #call fxn for rest of shit
             returnval = dataframehandling(geodec)
             if returnval == -1:
-                flash('"' + geodec.get_addr() + '" is not eligible.')
+                flash(geodec.get_addr() + ' is not eligible.')
             else:
-                flash('"' + geodec.get_addr() + '" is eligible, AMI: ' + str(returnval))
+                flash(geodec.get_addr() + ' is eligible, AMI: ' + str(returnval))
     return render_template("tract_search.html")
 
 def dataframehandling(geocode):
