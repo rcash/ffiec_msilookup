@@ -30,7 +30,11 @@ class countydata():
                 #otherwise manip dataframe to get one val
                 msastep = msastep.set_index('MSA2013')
                 val = msastep.loc[int(self.__msa)]
-                resultant = val.at['Mi2018']
+                if isinstance(val, pd.core.series.Series):
+                    resultant = val.at['Mi2018']
+                else:
+                    #update me when table changes
+                    resultant = val.iat[0,6]
                 #could still be multiple
                 if isinstance(resultant, list):
                     self.__maxmsa = resultant[0]
