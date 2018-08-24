@@ -1,6 +1,13 @@
 .body{
     display: block;
 }
+.logocontainer{
+    display: block;
+}
+.logo{
+    padding-top: 2vh;
+    vertical-align:bottom;
+}
 .terms{
     padding-top: 2.5vh;
     display: inline-block;
