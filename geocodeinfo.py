@@ -12,6 +12,7 @@ class geocode_info():
         self.payload = {'sSingleLine': self.__address, 'iCensusYear': '2018'}
         self.__tract = ""
         self.__msa = ""
+        self.__countycode = ""
         self.__addressfound = False
 
     def sendpost(self):
@@ -27,14 +28,29 @@ class geocode_info():
             self.__addressfound = True
             self.__tract = self.grab_tract(request)
             self.__msa = self.grab_msa(request)
+            self.__countycode = self.grab_countycode(request)
             print('Tract and MSA found-tract: ' + self.__tract + ' msa: ' + self.__msa)
+            print('countycode: ' + self.__countycode)
+        #need to use countycode, not state code!!!
+    def grab_countycode(self, request):
+        countylen = len('sCountyCode')
+        countyposition = request.find('sCountyCode')
+        precountystart = countyposition + countylen + 3
+        precounty = request[precountystart: precountystart + 3]#max length is four??
+        #print('precounty: ' + precounty)
+        stateabbrlen = len('sStateAbbr')
+        stateabbrposition = request.find('sStateAbbr')
+        stateabbr = request[stateabbrposition + stateabbrlen + 3:
+        stateabbrposition + stateabbrlen + 3 + 2]
+        return stateabbr + precounty
 
-    def grab_tract(self, request_string):
+
+    def grab_tract(self, request):
         #vals hardcoded, if geodec changes them this needs to be redone
         tractlen = len('sTractCode')
-        tractposition = request_string.find('sTractCode')
-        pretract = request_string[tractposition + tractlen + 3: tractposition +
-        tractlen + 10]
+        tractposition = request.find('sTractCode')
+        pretract = request[tractposition + tractlen + 3: tractposition +
+        tractlen + 3 + 7] #7 is Msa string len init
         #drop the 0
         tract = pretract.replace('.','')
         #drop any 0s in front according to how pandas indexes
@@ -61,6 +77,11 @@ class geocode_info():
             raise ValueError('ERROR: val must be greater than 0')
         self.__tract = val
 
+    def set_countycode(self, val):
+        if len(val) == 0:
+            raise ValueError('ERROR: val must be greater than 0')
+        self.__countycode = val
+
     def get_tract(self):
         if len(self.__tract) == 0:
             raise ValueError('ERROR: tract must be assigned with a length greater than 0.')
@@ -70,6 +91,11 @@ class geocode_info():
         if len(self.__msa) == 0:
             raise ValueError('ERROR: msa must be assigned with a length greater than 0.')
         return self.__msa
+
+    def get_countycode(self):
+        if len(self.__countycode) == 0:
+            raise ValueError('ERROR: countycode must be assigned with a length greater than 0.')
+        return self.__countycode
 
     def get_addr_status(self):
         return self.__addressfound
