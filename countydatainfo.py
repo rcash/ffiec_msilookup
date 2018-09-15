@@ -16,8 +16,6 @@ class countydata():
         #col values hardcoded, will need to change if spreadsheet changes
         cd = self.__df[['TRACT','MSA2013','RURAL','Mi2018','STATE COUNTY CODE']]
         cdtract = self.__df.set_index('TRACT')
-        #print(cdtract)
-        #print(cdtract.loc[int(self.__tract)])
         val = -1
         if self.rowdoesexist():
             #means max msa can be found now that we know it's in spreadsheet
@@ -36,7 +34,7 @@ class countydata():
                     resultant = val.at['Mi2018']
                 else:
                     #update me when table changes
-                    #resultant = val.iat[0,6]
+                    #find one with the right county code
                     resultantfinder = val.loc[int(self.get_msa()),'STATE COUNTY CODE']
                     count = 0
                     found = False
@@ -104,12 +102,8 @@ class countydata():
             return False
         #matching tracts have now been found
         matchingtracts = dftract.loc[int(self.__tract)]
-        #print(matchingtracts)
-        msavals = ''
-        #print(matchingtracts.loc['MSA2013'])
         #if series just grab msa val
         #series means we've got it down to one already
-        #print(matchingtracts)
         if isinstance(matchingtracts, pd.core.series.Series):
             msavals = matchingtracts.loc['MSA2013']
             if int(self.__msa) == msavals:
@@ -120,8 +114,6 @@ class countydata():
         else:
             #slice out cols we dont need, index on msa since all tracts are same
             msastate = matchingtracts.loc[:,['MSA2013','STATE COUNTY CODE']].set_index('MSA2013')
-            #print(msastate)
-            #print(msastate)
             #get ndarray of state county codes to make sure you grab the right one
             foundmsa = False
             #check to see that MSA is in index before working off of it
@@ -132,8 +124,6 @@ class countydata():
             if not foundmsa:
                 return False
             msavalstest = msastate.at[int(self.__msa),'STATE COUNTY CODE']
-            #print('MSAVALSTEST')
-            #print(self.__msa)
             #if string we found it, otherwise if list there is more work to do
             if(isinstance(msavalstest, str)):
                 print('row does exist for tract: ' +
@@ -149,13 +139,3 @@ class countydata():
                         return True
             print('did not find it')
             return False
-            #statecodes = matchingtracts.loc['STATE COUNTY CODE']
-            #print(statecodes)
-            #msavals = matchingtracts.at[int(self.__tract),'MSA2013']
-            '''
-            for n in msavals:
-                if int(self.__msa) == n:
-                    print('Successfully found msa pair for tract ' + self.__tract)
-                    return True
-            return False
-            '''
