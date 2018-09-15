@@ -38,7 +38,6 @@ def dataframehandling(geocode):
     cd.set_msa(geocode.get_msa())
     cd.set_countycode(geocode.get_countycode())
     print(cd.get_countycode())
-    print('I tried?')
     cd.calcmaxmsa()
     if cd.getmaxmsastat() == False:
         return -1
