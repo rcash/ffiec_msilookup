@@ -35,13 +35,16 @@ class geocode_info():
     def grab_countycode(self, request):
         countylen = len('sCountyCode')
         countyposition = request.find('sCountyCode')
+        #county code will always be length 3, verified
         precountystart = countyposition + countylen + 3
-        precounty = request[precountystart: precountystart + 3]#max length is four??
-        #print('precounty: ' + precounty)
+        precounty = request[precountystart: precountystart + 3]
+        #find two letter state sStateAbbr
         stateabbrlen = len('sStateAbbr')
         stateabbrposition = request.find('sStateAbbr')
+        # +2 at end for the 2 letter code
         stateabbr = request[stateabbrposition + stateabbrlen + 3:
         stateabbrposition + stateabbrlen + 3 + 2]
+        #add em up
         return stateabbr + precounty
 
 
