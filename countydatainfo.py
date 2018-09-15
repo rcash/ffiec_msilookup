@@ -10,12 +10,13 @@ class countydata():
         self.__msa = ""
         self.__maxmsafound = False
         self.__maxmsa = ""
+        self.__countycode = ""
 
     def calcmaxmsa(self):
         #col values hardcoded, will need to change if spreadsheet changes
-        cd = self.__df[['TRACT','MSA2013','RURAL','Mi2018']]
+        cd = self.__df[['TRACT','MSA2013','RURAL','Mi2018','STATE COUNTY CODE']]
         cdtract = self.__df.set_index('TRACT')
-        #print('cdtract')
+        #print(cdtract)
         #print(cdtract.loc[int(self.__tract)])
         val = -1
         if self.rowdoesexist():
@@ -30,11 +31,26 @@ class countydata():
                 #otherwise manip dataframe to get one val
                 msastep = msastep.set_index('MSA2013')
                 val = msastep.loc[int(self.__msa)]
+                print('VAL')
+                print(val)
                 if isinstance(val, pd.core.series.Series):
                     resultant = val.at['Mi2018']
                 else:
                     #update me when table changes
-                    resultant = val.iat[0,6]
+                    #resultant = val.iat[0,6]
+                    resultantfinder = val.loc[int(self.get_msa()),'STATE COUNTY CODE']
+                    count = 0
+                    found = False
+                    for n in resultantfinder:
+                        print(n)
+                        print('countycode ' + self.get_countycode())
+                        if n == self.__countycode:
+                            found = True
+                        elif not found:
+                            count = count + 1
+                    print(val)
+                    print(count)
+                    resultant = val.iat[count, 6]
                 #could still be multiple
                 if isinstance(resultant, list):
                     self.__maxmsa = resultant[0]
@@ -48,6 +64,16 @@ class countydata():
 
     def getmaxmsastat(self):
         return self.__maxmsafound
+
+    def set_countycode(self, val):
+        if len(val) == 0:
+            raise ValueError('ERROR: val must be assigned with a length greater than 0')
+        self.__countycode = val
+
+    def get_countycode(self):
+        if len(self.__countycode) == 0:
+            raise ValueError('ERROR: countycode must be assigned with a length greater than 0.')
+        return self.__countycode
 
     def set_msa(self, val):
         if len(val) == 0:
