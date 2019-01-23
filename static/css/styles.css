@@ -9,14 +9,14 @@
     vertical-align:bottom;
 }
 .terms{
-    padding-top: 2.5vh;
+    padding-top: 2vh;
     display: inline-block;
     width: 50%;
     text-align: center;
-    padding-bottom: 2.5vh;
+    padding-bottom: 2vh;
 }
 .searching{
-    padding-top: 2.5%;
+    padding-top: 1.75%;
     text-align: center;
 }
 
@@ -25,9 +25,9 @@
 }
 
 .instr-group{
-    padding-top: 5vh;
+    padding-top: 2vh;
     vertical-align: middle;
-    padding-bottom: 1%;
+    padding-bottom: .5%;
 }
 
 .flashes{
