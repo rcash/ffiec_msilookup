@@ -1,0 +1,13 @@
+44515 Peaceful Valley Rd, Harris, MN      YES
+
+8476 County Rd 37 NE, Saint Michael, MN 55376             YES
+
+2440 Jewel Ln N, Plymouth, MN 55447    NO
+
+6203 Jason Ave NE, Otsego, MN 55301    NO
+
+5554 Winsome Way, Oregon, Wi 53575  NO
+
+837 Oregon Parks Ave, Oregon, WI 53575 NO
+
+6060 Sun Valley Pkwy, Oregon, WI 53575              YES
