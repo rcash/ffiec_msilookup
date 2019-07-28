@@ -14,7 +14,7 @@ class countydata():
 
     def calcmaxmsa(self):
         #col values hardcoded, will need to change if spreadsheet changes
-        cd = self.__df[['TRACT','MSA2013','RURAL','Mi2018','STATE COUNTY CODE']]
+        cd = self.__df[['TRACT','MSA','RURAL','MI2019','STATE COUNTY CODE']]
         cdtract = self.__df.set_index('TRACT')
         val = -1
         if self.rowdoesexist():
@@ -23,15 +23,15 @@ class countydata():
             msastep = cdtract.loc[int(self.__tract)]
             if isinstance(msastep, pd.core.series.Series):
                 #left with a series, only one possible Mi value
-                self.__maxmsa = msastep.loc['Mi2018']
+                self.__maxmsa = msastep.loc['MI2019']
                 print('Max msa found: ' + str(self.__maxmsa))
             else:
                 #otherwise manip dataframe to get one val
-                msastep = msastep.set_index('MSA2013')
+                msastep = msastep.set_index('MSA')
                 val = msastep.loc[int(self.__msa)]
                 #singular value, don't need to check countycode because there are no others in file
                 if isinstance(val, pd.core.series.Series):
-                    resultant = val.at['Mi2018']
+                    resultant = val.at['MI2019']
                 else:
                     #update me when table changes
                     #find one with the right county code
@@ -105,7 +105,7 @@ class countydata():
         #if series just grab msa val
         #series means we've got it down to one already
         if isinstance(matchingtracts, pd.core.series.Series):
-            msavals = matchingtracts.loc['MSA2013']
+            msavals = matchingtracts.loc['MSA']
             if int(self.__msa) == msavals:
                 print('Successfully found msa pair for tract ' + self.__tract)
                 return True
@@ -113,7 +113,7 @@ class countydata():
                 return False
         else:
             #slice out cols we dont need, index on msa since all tracts are same
-            msastate = matchingtracts.loc[:,['MSA2013','STATE COUNTY CODE']].set_index('MSA2013')
+            msastate = matchingtracts.loc[:,['MSA','STATE COUNTY CODE']].set_index('MSA')
             #get ndarray of state county codes to make sure you grab the right one
             foundmsa = False
             #check to see that MSA is in index before working off of it
