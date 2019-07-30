@@ -68,6 +68,8 @@ class geocode_info():
         msa = result_string[msaposition + msalen + 3: msaposition + msalen + 8]
         msa = int(msa)
         msa = str(msa)
+		if msa == '99999':
+			return '00000'
         return msa
 
     def set_msa(self, val):
