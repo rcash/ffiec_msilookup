@@ -9,7 +9,7 @@ class geocode_info():
         #url to grab from
         self.__posturl = 'https://geomap.ffiec.gov/FFIECGeocMap/GeocodeMap1.aspx/GetGeocodeData'
         self.__postheader = {'Content-Type': 'application/json; charset=utf-8'}
-        self.payload = {'sSingleLine': self.__address, 'iCensusYear': '2019'}
+        self.payload = {'sSingleLine': self.__address, 'iCensusYear': '2018'}
         self.__tract = ""
         self.__msa = ""
         self.__countycode = ""
